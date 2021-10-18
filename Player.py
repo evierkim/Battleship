@@ -6,8 +6,10 @@ class Player:
         self.gridShips = Grid()
         self.gridShots = Grid()
 
-    def takeTurn(self):
+    def takeTurn(self, otherPlayer ):
         # over write in the HumanPlayer and ComputerPlayer subclasses
+        # you need access to the otherPlayer (who is the computer or human)
+        # this way you can access their grids to determine if you hit their ship
         pass
 
     def placeShip(self, ship , size ):
@@ -16,8 +18,8 @@ class Player:
 
     # This is a useful method to determine if the space is "~" or something else
     # Send it the grid you want to check, so ship or shot
-    def isPlacementLegal(self , grid, row , col ):
-        if( grid[row][col] == "~"):
+    def isSpaceWater(self, row, col):
+        if self.grid[row][col] == "~":
             return True
         else:
             return False
@@ -34,3 +36,11 @@ class Player:
         self.gridShips.printGrid()
         print("Shot Grid")
         self.gridShots.printGrid()
+
+        # this method will determine if the Player's ship grid still
+        # has ships or not
+        # If they have no ships left, the other player wins
+        # This method returns true if they still have ships
+        # This method returns false if they don't have ships
+    def stillHasShips(self):
+        pass
