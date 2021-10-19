@@ -5,31 +5,26 @@ class HumanPlayer(Player):
         super().__init__()
 
     """
-    TAKE TURN
+    takeTurn
+    allows player to shoot at opponent's ships
+    tells player if ship has been sunk and what kind
+    also tells player if all ships are sunk and are the winner
+    "x" marks a hit, "o" marks a miss
+    parameters: otherPlayer Player object of opponent
     """
     def takeTurn(self, otherPlayer):
-        #must have access to other player's grid, so player must be a parameter
-        #compare shots against the other player's ship grid
-
-        #x is hit, o is miss
-
-        #ask for shot coordinates from player
-        #compare shot with the otherPlayer's gridShips
-            #if hit, player is allowed to go again; mark it as a hit on both otherPlayer's gridShips and player's gridShots
-                #check if ship is sunk, or if all the ships are sunk (stillHasShips)
-            #if miss, mark it as an o on player's gridShots
 
         row = input("Input row 0-9:")
         column = input("Input column 0-9:")
 
-        if otherPlayer.gridShips.returnLocation(row, column ) is not "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
+        if otherPlayer.gridShips.returnLocation(row, column ) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
             shipType = otherPlayer.gridShips.returnLocation(row, column)
             print("Hit!")
 
             sunk = True #helps check if ship is sunk or not
             for col in range(0, 10): #traverses through the columns
                 for r in range(0, 10): #traverses through each row of the column
-                    if otherPlayer.gridShips[r][col] is shipType: #if the ship is still not sunk
+                    if otherPlayer.gridShips[r][col] == shipType: #if the ship is still not sunk
                         sunk = False
                         break
             if sunk is True: #if the ship is sunk
@@ -46,7 +41,7 @@ class HumanPlayer(Player):
 
             otherPlayer.gridShips.changeSingleSpace(row, column, "x") #mark as a hit on otherPlayer's gridShips
             self.gridShots.changeSingleSpace(row,column, "x") #mark as a hit on player's gridShots
-            if otherPlayer.gridShips.stillHasShips() is False: #if there are no more ships on otherPlayer's grid
+            if otherPlayer.gridShips.stillHasShips() == False: #if there are no more ships on otherPlayer's grid
                 print("You win!")
 
             self.printGrids()
@@ -59,61 +54,56 @@ class HumanPlayer(Player):
 
     """
     placeShip
-    
+    places a ship onto the player's own grid
+    parameters: type of ship, char
+    parameters: size of the ship, int
     """
     def placeShip(self, ship, size):
-        placed = True
-        while placed: #run until p
+        notPlaced = True
+        while notPlaced: #while ship has not been placed
 
-            direction = input("Input 0 for horizontal, 1 for vertical")
+            direction = int(input("Input 0 for horizontal, 1 for vertical"))
             row = int(input("Input row 0-9:"))
             column = int(input("Input column 0-9:"))
 
             if direction == 0: #if horizontal placement
-                allSpacesOpen = False
-
-                for x in range(column, column+size): #loops through the row, "size" number of times
-                    if self.gridShips.isSpaceWater(self, row, x) == False: #if the space is not open/water
+                allSpacesOpen = True
+                for x in range(column, column+size): #loops through the column's rows, "size" number of times
+                    if self.gridShips.isSpaceWater(row, x) == False: #if the space is not open/water
                         allSpacesOpen = False
+                        print("Space is illegal")
                         break
-                    else: #if the space is water
-                        allSpacesOpen = True
-
-                if allSpacesOpen is True: #if
-                    self.gridShips.changeRow(self, row, ship, column, size)
-                placed = False
+                if allSpacesOpen == True: #if the spaces are legal
+                    self.gridShips.changeRow(row, ship, column, size)
+                    notPlaced = False
 
             else: #if vertical placement
-                allSpacesOpen = False
+                allSpacesOpen = True
 
-                for x in range(row, row+size):
-                    if self.gridShips.isSpaceWater(self, x, row) == False: #if the space is not open/water
+                for x in range(row, row+size): #loops through the row's columns, "size" number of times
+                    if self.gridShips.isSpaceWater(x, column) == False: #if the space is not open/water
                         allSpacesOpen = False
+                        print("Space is illegal")
                         break
-                    else:
-                        allSpacesOpen = True
+                if allSpacesOpen == True: #if the spaces are legal
+                    self.gridShips.changeCol(column, ship, row, size)
+                    notPlaced = False
 
-                if allSpacesOpen is True:
-                    self.gridShips.changeCol(self, column, ship, row, size)
-
-
+    """
+    stillHasShips
+    checks a grid to see if it still has ships or not
+    returns a boolean: false if it doesn't have ships, true if it has ships
+    """
     def stillHasShips(self, row, column):
-        #if isSpaceWater(self, row, column) == False: #if the space
         #use a double for loop to traverse every single spot
 
         hasShips = True
         for r in range(0,10): #traverses through the rows
             for c in range(0,10): #traverses through the columns of each row
-                if self.gridShips.isSpaceWater(r, c) is True: #if the space is water
+                if self.gridShips.isSpaceWater(r,c) != True or self.gridShips.returnLocation(r,c) != "o" or self.gridShips.returnLocation(r,c) != "x":
+                    #if the space isn't water, or a marked miss or hit
                     hasShips = False
-                elif self.gridShips.returnLocation(r,c) is "o" or "x": #if the space is already marked a hit/miss
-                    hasShips = False
-                else: #if the space has a ship value
-                    hasShips = True
-                    break
-            if hasShips is True:
-                break
-
+        return hasShips
 
 
 

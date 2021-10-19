@@ -7,5 +7,4 @@ hp1.placeShip( "B", 4 )
 hp1.placeShip( "C", 3 )
 hp1.placeShip( "S", 3 )
 hp1.placeShip( "D", 2 )
-
-hp1.printGrids()
+hp1.gridShips.printGrid()
