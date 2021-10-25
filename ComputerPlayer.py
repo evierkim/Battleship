@@ -32,6 +32,7 @@ class ComputerPlayer(Player):
                         break
                 if shipNotPlace == False: # area is clear
                     self.gridShips.changeCol(c, ship, r, size)
+
     """
     takeTurn
     takes shot at random new space

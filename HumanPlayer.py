@@ -17,7 +17,7 @@ class HumanPlayer(Player):
         row = input("Input row 0-9:")
         column = input("Input column 0-9:")
 
-        if otherPlayer.gridShips.returnLocation(row, column ) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
+        if otherPlayer.gridShips.returnLocation(row,column) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
             shipType = otherPlayer.gridShips.returnLocation(row, column)
             print("Hit!")
 
@@ -69,6 +69,10 @@ class HumanPlayer(Player):
             if direction == 0: #if horizontal placement
                 allSpacesOpen = True
                 for x in range(column, column+size): #loops through the column's rows, "size" number of times
+                    if column+size > 9:
+                        print("Invalid position")
+                        allSpacesOpen = False
+                        break
                     if self.gridShips.isSpaceWater(row, x) == False: #if the space is not open/water
                         allSpacesOpen = False
                         print("Space is illegal")
@@ -76,11 +80,15 @@ class HumanPlayer(Player):
                 if allSpacesOpen == True: #if the spaces are legal
                     self.gridShips.changeRow(row, ship, column, size)
                     notPlaced = False
-
+                    self.gridShips.printGrid()
             else: #if vertical placement
                 allSpacesOpen = True
 
                 for x in range(row, row+size): #loops through the row's columns, "size" number of times
+                    if row+size > 9:
+                        print("Invalid position")
+                        allSpacesOpen = False
+                        break
                     if self.gridShips.isSpaceWater(x, column) == False: #if the space is not open/water
                         allSpacesOpen = False
                         print("Space is illegal")
@@ -88,7 +96,7 @@ class HumanPlayer(Player):
                 if allSpacesOpen == True: #if the spaces are legal
                     self.gridShips.changeCol(column, ship, row, size)
                     notPlaced = False
-
+                    self.printGrids()
     """
     stillHasShips
     checks a grid to see if it still has ships or not
@@ -96,7 +104,8 @@ class HumanPlayer(Player):
     """
     def stillHasShips(self, row, column):
         #use a double for loop to traverse every single spot
-
+        """
+        my original code, replaced it w evies
         hasShips = True
         for r in range(0,10): #traverses through the rows
             for c in range(0,10): #traverses through the columns of each row
@@ -104,6 +113,18 @@ class HumanPlayer(Player):
                     #if the space isn't water, or a marked miss or hit
                     hasShips = False
         return hasShips
+        :param row:
+        :param column:
+        :return:
+        """
+
+    def stillHasShips(self):
+        b = False
+        for x in range(10): # traverses rows
+            for y in range(10): # traverses columns
+                if self.gridShips.returnLocation(x,y) != "o" or self.gridShips.returnLocation(x,y) != "x" or self.gridShips.returnLocation(x,y) != "~": # if element has a ship
+                    b = True
+        return b
 
 
 
