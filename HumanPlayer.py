@@ -41,8 +41,8 @@ class HumanPlayer(Player):
 
             otherPlayer.gridShips.changeSingleSpace(row, column, "x") #mark as a hit on otherPlayer's gridShips
             self.gridShots.changeSingleSpace(row,column, "x") #mark as a hit on player's gridShots
-            if otherPlayer.gridShips.stillHasShips() == False: #if there are no more ships on otherPlayer's grid
-                print("You win!")
+            # if otherPlayer.gridShips.stillHasShips() == False: #if there are no more ships on otherPlayer's grid
+                # print("You win!")
 
             self.printGrids()
 

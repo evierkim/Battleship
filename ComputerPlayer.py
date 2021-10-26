@@ -46,10 +46,10 @@ class ComputerPlayer(Player):
             c = random.randrange(0, 10)
             if otherPlayer.gridShips.returnLocation(r,c) != "o" and otherPlayer.gridShips.returnLocation(r,c) != "x": # if space has not been shot at
                 b = False
-        if otherPlayer.gridShips.returnLocation(r,c) != "~": # if shot at water
+        if otherPlayer.gridShips.returnLocation(r,c) == "~": # if shot at water
             otherPlayer.gridShips.changeSingleSpace(r,c,"o")
             self.gridShots.changeSingleSpace(r,c,"o")
-        else: # if shot at ship
+        elif otherPlayer.gridShips.returnLocation(r,c) != "~": # if shot at ship
             otherPlayer.gridShips.changeSingleSpace(r,c,"x")
             self.gridShots.changeSingleSpace(r,c,"x")
             print("Hit")
