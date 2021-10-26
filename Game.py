@@ -8,7 +8,7 @@ cp.createShipGrid()
 cp.gridShips.printGrid()
 hp.createShipGrid()
 
-while hp.stillHasShips() and cp.stillHasShips():
+while hp.stillHasShips() or cp.stillHasShips():
     print("Take your turn:")
     hp.takeTurn(cp)
     print("Computer's turn:")
