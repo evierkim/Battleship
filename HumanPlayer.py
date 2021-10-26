@@ -20,6 +20,8 @@ class HumanPlayer(Player):
         if otherPlayer.gridShips.returnLocation(row,column) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
             shipType = otherPlayer.gridShips.returnLocation(row, column)
             print("Hit!")
+            otherPlayer.gridShips.changeSingleSpace(row, column, "x")  # mark as a hit on otherPlayer's gridShips
+            self.gridShots.changeSingleSpace(row, column, "x")  # mark as a hit on player's gridShots
 
             sunk = True #helps check if ship is sunk or not
             for col in range(0, 10): #traverses through the columns
@@ -38,11 +40,6 @@ class HumanPlayer(Player):
                     print("Submarine is sunk.")
                 else: #if shipType is D, destroyer
                     print("Destroyer is sunk.")
-
-            otherPlayer.gridShips.changeSingleSpace(row, column, "x") #mark as a hit on otherPlayer's gridShips
-            self.gridShots.changeSingleSpace(row,column, "x") #mark as a hit on player's gridShots
-            #if otherPlayer.gridShips.stillHasShips() == False: #if there are no more ships on otherPlayer's grid
-                #print("You win!")
 
             self.printGrids()
 
