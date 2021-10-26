@@ -24,7 +24,7 @@ class HumanPlayer(Player):
             sunk = True #helps check if ship is sunk or not
             for col in range(0, 10): #traverses through the columns
                 for r in range(0, 10): #traverses through each row of the column
-                    if otherPlayer.gridShips[r][col] == shipType: #if the ship is still not sunk
+                    if otherPlayer.gridShips.returnLocation(r,col) == shipType: #if the ship is still not sunk
                         sunk = False
                         break
             if sunk is True: #if the ship is sunk

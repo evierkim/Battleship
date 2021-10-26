@@ -7,6 +7,7 @@ cp = ComputerPlayer()
 cp.createShipGrid()
 cp.gridShips.printGrid()
 hp.createShipGrid()
+print("Human Player, Make First Move:")
 
 while hp.stillHasShips() and cp.stillHasShips():
     hp.takeTurn(cp)
