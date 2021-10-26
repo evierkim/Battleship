@@ -11,8 +11,6 @@ hp.gridShips.printGrid()
 
 while hp.stillHasShips() and cp.stillHasShips():
     hp.takeTurn(cp)
-    hp.printGrids()
     cp.takeTurn(hp)
-    cp.printGrids()
 
 print("Game over")

@@ -17,8 +17,8 @@ class ComputerPlayer(Player):
             if a == 0: # horizontal
                 r = random.randrange(0, 10)
                 c = random.randrange(0, 11-size)
-                for x in range(c,size): # checks if all spaces are legal
-                    if self.gridShips.isSpaceWater(r,x) == False: # if space is illegal
+                for col in range(size): # checks if all spaces are legal
+                    if self.gridShips.isSpaceWater(r,col+c) == False: # if space is illegal
                         shipNotPlace = True
                         break
                 if shipNotPlace == False: # area is clear
@@ -26,8 +26,8 @@ class ComputerPlayer(Player):
             else: # if vertical
                 r = random.randrange(0, 11-size)
                 c = random.randrange(0, 10)
-                for x in range(r, size):  # checks if all spaces are legal
-                    if self.gridShips.isSpaceWater(x, c) == False:  # if space is illegal
+                for row in range(size):  # checks if all spaces are legal
+                    if self.gridShips.isSpaceWater(row+r, c) == False:  # if space is illegal
                         shipNotPlace = True
                         break
                 if shipNotPlace == False: # area is clear
