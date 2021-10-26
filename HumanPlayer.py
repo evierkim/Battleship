@@ -14,8 +14,8 @@ class HumanPlayer(Player):
     """
     def takeTurn(self, otherPlayer):
 
-        row = input("Input row 0-9:")
-        column = input("Input column 0-9:")
+        row = int(input("Input row 0-9:"))
+        column = int(input("Input column 0-9:"))
 
         if otherPlayer.gridShips.returnLocation(row,column) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
             shipType = otherPlayer.gridShips.returnLocation(row, column)
