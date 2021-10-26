@@ -122,7 +122,7 @@ class HumanPlayer(Player):
         b = False
         for x in range(10): # traverses rows
             for y in range(10): # traverses columns
-                if self.gridShips.returnLocation(x,y) != "o" or self.gridShips.returnLocation(x,y) != "x" or self.gridShips.returnLocation(x,y) != "~": # if element has a ship
+                if self.gridShips.returnLocation(x,y) != "o" and self.gridShips.returnLocation(x,y) != "x" and self.gridShips.returnLocation(x,y) != "~": # if element has a ship
                     b = True
         return b
 
