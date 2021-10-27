@@ -87,9 +87,8 @@ class ComputerPlayer(Player):
     @return  boolean  false if no more ships and vice versa
     """
     def stillHasShips(self):
-        b = False
         for x in range(10): # traverses rows
             for y in range(10): # traverses columns
                 if self.gridShips.returnLocation(x,y) != "o" and self.gridShips.returnLocation(x,y) != "x" and self.gridShips.returnLocation(x,y) != "~": # if element has a ship
-                    b = True
-        return b
+                    return True
+        return False

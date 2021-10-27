@@ -14,10 +14,9 @@ while hp.stillHasShips() and cp.stillHasShips():
     print("Computer's turn:")
     cp.takeTurn(hp)
 
-
 if not hp.stillHasShips():
     print("Computer Won!")
-if cp.stillHasShips() == True:
+else:
     print("You Won!")
 
 print("Game over")
