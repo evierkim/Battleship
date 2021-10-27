@@ -7,14 +7,17 @@ cp = ComputerPlayer()
 cp.createShipGrid()
 cp.gridShips.printGrid()
 hp.createShipGrid()
-hp.gridShips.printGrid()
 
 while hp.stillHasShips() and cp.stillHasShips():
+    print("Take your turn:")
     hp.takeTurn(cp)
+    print("Computer's turn:")
     cp.takeTurn(hp)
 
-if hp.stillHasShips() == False:
+
+if not hp.stillHasShips():
     print("Computer Won!")
 if cp.stillHasShips() == True:
     print("You Won!")
+
 print("Game over")
