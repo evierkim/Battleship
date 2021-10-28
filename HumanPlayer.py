@@ -26,7 +26,7 @@ class HumanPlayer(Player):
                 continue
             if self.gridShots.returnLocation(row, column) != "o" and self.gridShots.returnLocation(row, column) != "x": #if user has not yet taken a shot at it
                 invalid = False
-            else:
+            else: #if user has shot here already
                 print("You've already shot here. Try again.")
 
         if otherPlayer.gridShips.returnLocation(row,column) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
