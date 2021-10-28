@@ -24,8 +24,10 @@ class HumanPlayer(Player):
             if column < 0 or column > 9: #if user inputs something not between 0 and 9
                 print("Space is illegal. Try again")
                 continue
-            else:
+            if self.gridShots.returnLocation(row, column) != "o" and self.gridShots.returnLocation(row, column) != "x": #if user has not yet taken a shot at it
                 invalid = False
+            else:
+                print("You've already shot here. Try again.")
 
         if otherPlayer.gridShips.returnLocation(row,column) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
             shipType = otherPlayer.gridShips.returnLocation(row, column)
