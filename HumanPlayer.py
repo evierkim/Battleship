@@ -14,8 +14,18 @@ class HumanPlayer(Player):
     """
     def takeTurn(self, otherPlayer):
 
-        row = int(input("Input row 0-9:"))
-        column = int(input("Input column 0-9:"))
+        invalid = True
+        while invalid: #runs while space inputted is invalid/illegal
+            row = int(input("Input row 0-9:"))
+            if row < 0 or row > 9: #if user inputs something not between 0 and 9
+                print("Space is illegal. Try again.")
+                continue
+            column = int(input("Input column 0-9:"))
+            if column < 0 or column > 9: #if user inputs something not between 0 and 9
+                print("Space is illegal. Try again")
+                continue
+            else:
+                invalid = False
 
         if otherPlayer.gridShips.returnLocation(row,column) != "~": #if hit/if it's not water (assuming that they wouldn't shoot at the same place more than once)
             shipType = otherPlayer.gridShips.returnLocation(row, column)
@@ -60,8 +70,17 @@ class HumanPlayer(Player):
         while notPlaced: #while ship has not been placed
 
             direction = int(input("Input 0 for horizontal, 1 for vertical"))
+            if direction != 0 and direction != 1: #if user inputs something other than 0 or 1
+                print("Illegal input. Try again.")
+                continue
             row = int(input("Input row 0-9:"))
+            if row < 0 or row > 9: #if user inputs something not between 0 and 9
+                print("Space is illegal. Try again.")
+                continue
             column = int(input("Input column 0-9:"))
+            if column < 0 or column > 9: #if user inputs something not between 0 and 9
+                print("Space is illegal. Try again")
+                continue
 
             if direction == 0: #if horizontal placement
                 allSpacesOpen = True
@@ -99,35 +118,10 @@ class HumanPlayer(Player):
     checks a grid to see if it still has ships or not
     returns a boolean: false if it doesn't have ships, true if it has ships
     """
-    def stillHasShips(self, row, column):
-        #use a double for loop to traverse every single spot
-        """
-        my original code, replaced it w evies
-        hasShips = True
-        for r in range(0,10): #traverses through the rows
-            for c in range(0,10): #traverses through the columns of each row
-                if self.gridShips.isSpaceWater(r,c) != True or self.gridShips.returnLocation(r,c) != "o" or self.gridShips.returnLocation(r,c) != "x":
-                    #if the space isn't water, or a marked miss or hit
-                    hasShips = False
-        return hasShips
-        :param row:
-        :param column:
-        :return:
-        """
 
     def stillHasShips(self):
-        b = False
         for x in range(10): # traverses rows
             for y in range(10): # traverses columns
                 if self.gridShips.returnLocation(x,y) != "o" and self.gridShips.returnLocation(x,y) != "x" and self.gridShips.returnLocation(x,y) != "~": # if element has a ship
-                    b = True
-        return b
-
-
-
-
-
-
-
-
-
+                    return True
+        return False
