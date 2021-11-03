@@ -122,7 +122,7 @@ class ComputerPlayer(Player):
             while needNewSpace: # runs until new index is generated
                 self.r = random.randrange(0, 10)
                 self.c = random.randrange(0, 10)
-                if self.gridShots.returnLocation(self.r,self.c) == "o": # if space has not been shot at
+                if self.gridShots.returnLocation(self.r,self.c) == "~": # if space has not been shot at
                     self.shot(otherPlayer, self.r, self.c)
                     needNewSpace = False
         self.printGrids()
