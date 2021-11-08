@@ -3,7 +3,7 @@ import random
 class ComputerPlayer(Player):
     def __init__(self):
         super().__init__()
-        self.pHit = False # tells us if the previous turn's shot was a hit
+        self.oHit = False
         self.shotHit = False # tells us if the current shot just made was a hit
         self.direction = 0
         self.r = 0
@@ -57,7 +57,6 @@ class ComputerPlayer(Player):
             otherPlayer.gridShips.changeSingleSpace(r, c, "x")
             self.gridShots.changeSingleSpace(r, c, "x")
             print("Hit")
-            self.pHit = True
             self.shotHit = True
     """
     checkSpaces
@@ -79,7 +78,7 @@ class ComputerPlayer(Player):
     @param  otherPlayer  Player object of opposing player
     """
     def takeTurn(self,otherPlayer):
-        if self.pHit: # if the previous turn hit a ship and it's not sunk yet
+        if self.oHit: # if the previous turn hit a ship and it's not sunk yet
             if self.count == 0:
                 self.checkSpaces()
             self.count += 1
@@ -147,20 +146,20 @@ class ComputerPlayer(Player):
                     s += 1
         if a == 0: # aircraft sunk
             print("aircraft carrier sunk")
-            self.pHit = False
+            self.oHit = False
             self.direction = 0
             self.count = 0
             self.countMax = 3
         if b == 0: # battleship sunk
             print("battleship sunk")
-            self.pHit = False
+            self.oHit = False
             self.direction = 0
             self.count = 0
             if a == 0: # aircraft and battleship sunk
                 self.countMax = 2
         if c == 0: # cruiser sunk
             print("cruiser sunk")
-            self.pHit = False
+            self.oHit = False
             self.direction = 0
             self.count = 0
             self.countMax = 1
@@ -168,12 +167,12 @@ class ComputerPlayer(Player):
                 self.countMax = 1
         if d == 0: # destroyer sunk
             print("destroyer sunk")
-            self.pHit = False
+            self.oHit = False
             self.direction = 0
             self.count = 0
         if s == 0: # sub sunk
             print("submarine sunk")
-            self.pHit = False
+            self.oHit = False
             self.direction = 0
             self.count = 0
             if a == 0 and b == 0 and c == 0: # aircraft, battleship, cruiser, and sub sunk
