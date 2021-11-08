@@ -78,8 +78,7 @@ class ComputerPlayer(Player):
     """
     def takeTurn(self,otherPlayer):
         if self.oHit: # if the previous turn hit a ship and it's not sunk yet
-            if self.count == 0: # previous turn was the first hit on ship
-                self.checkSpaces()
+            self.checkSpaces()
             self.count += 1
             if (self.belowOpen == False and self.direction == 0):  # if space below isn't open
                 self.direction = 2
@@ -96,24 +95,27 @@ class ComputerPlayer(Player):
                 self.count = 0
             """
             if self.direction == 0: # space below
-                self.shot(otherPlayer, self.r + self.count, self.c) # takes shot below
-                if self.shotHit is False:  # miss
+                if self.r + self.count <= 9: # still in grid
+                    self.shot(otherPlayer, self.r + self.count, self.c) # takes shot below
+                if self.shotHit is False or self.r + self.count > 9:  # miss or off the grid
                     self.direction = 2 # changes direction to above
                     self.count = 0
             elif self.direction == 2:  # space above
-                self.shot(otherPlayer, self.r - self.count, self.c)
-                if self.shotHit is False:  # miss
+                if self.r - self.count >= 0: # still in grid
+                    self.shot(otherPlayer, self.r - self.count, self.c)
+                if self.shotHit is False or self.r - self.count < 0:  # miss or off grid
                     self.direction = 1
                     self.count = 0
             elif self.direction == 1:  # space to left
-                self.shot(otherPlayer,self.r, self.c - self.count)
-                if self.shotHit is False:  # miss
+                if self.c - self.count >= 0: # still in grid
+                    self.shot(otherPlayer,self.r, self.c - self.count)
+                if self.shotHit is False or self.r - self.count < 0:  # miss or off grid
                     self.direction = 3
                     self.count = 0
             elif self.direction == 3:  # space to right
                 self.shot(otherPlayer,self.r, self.c + self.count)
                 """ this will never be true/run
-                if self.shotHit is False:  # miss
+                if self.shotHit is False or self.c + self.count > 9:  # miss or off grid
                     self.direction = 0
                     self.count = 0
                 """
