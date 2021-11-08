@@ -80,6 +80,7 @@ class ComputerPlayer(Player):
     """
     def takeTurn(self,otherPlayer):
         if self.oHit: # if a previous turn hit a ship and it's not sunk yet
+
             self.checkSpaces(self.r, self.c)
             self.count += 1
             if self.belowOpen == False and self.direction == 0:  # if space below isn't open
