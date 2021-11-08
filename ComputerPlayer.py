@@ -57,6 +57,7 @@ class ComputerPlayer(Player):
             otherPlayer.gridShips.changeSingleSpace(r, c, "x")
             self.gridShots.changeSingleSpace(r, c, "x")
             print("Hit")
+            self.pHit = True
             self.shotHit = True
     """
     checkSpaces
