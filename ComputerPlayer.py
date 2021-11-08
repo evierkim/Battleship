@@ -78,7 +78,7 @@ class ComputerPlayer(Player):
     notifies if ship has been hit/sunk
     @param  otherPlayer  Player object of opposing player
     """
-    def takeTurn(self,otherPlayer):
+    def takeTurn(self, otherPlayer):
         if self.oHit: # if a previous turn hit a ship and it's not sunk yet
             if self.count == 0:
                 self.checkSpaces(self.r, self.c)
