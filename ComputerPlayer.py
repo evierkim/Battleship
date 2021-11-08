@@ -12,8 +12,7 @@ class ComputerPlayer(Player):
         self.aboveOpen = False
         self.rightOpen = False
         self.leftOpen = False
-        self.count = 0
-        self.countMax = 4
+        self.count = 0 # counts how many hits have been made
     """
     placeShip
     randomly places parameter ship in clear spaces
@@ -78,21 +77,21 @@ class ComputerPlayer(Player):
     @param  otherPlayer  Player object of opposing player
     """
     def takeTurn(self,otherPlayer):
-        if self.oHit: # if the previous turn hit a ship and it's not sunk yet
+        if self.oHit: # if a previous turn hit a ship and the ship's not sunk yet
             if self.count == 0: # previous turn was the first hit on ship
                 self.checkSpaces()
             self.count += 1
-            if (self.belowOpen == False and self.direction == 0) or self.count > self.countMax: # if space below isn't open
+            if self.belowOpen == False and self.direction == 0: # if space below isn't open
                 self.direction = 2
                 self.count = 0
-            if (self.aboveOpen == False and self.direction == 2) or self.count > self.countMax: # if space above isn't open
+            if self.aboveOpen == False and self.direction == 2: # if space above isn't open
                 self.direction = 1
                 self.count = 0
-            if (self.leftOpen == False and self.direction == 1) or self.count > self.countMax: # if space to left isn't open
+            if self.leftOpen == False and self.direction == 1: # if space to left isn't open
                 self.direction = 3
                 self.count = 0
             """ this will never be true/run
-            if (self.rightOpen == False and self.direction == 3) or self.count > self.countMax: # if space to right isn't open
+            if self.rightOpen == False and self.direction == 3: # if space to right isn't open
                 self.direction = 0
                 self.count = 0
             """
