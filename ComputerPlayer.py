@@ -3,7 +3,7 @@ import random
 class ComputerPlayer(Player):
     def __init__(self):
         super().__init__()
-        self.pHit = False # tells us if the previous turn was a hit
+        self.pHit = False # tells us if the previous turn's shot was a hit
         self.shotHit = False # tells us if the current shot just made was a hit
         self.direction = 0
         self.r = 0
@@ -52,7 +52,6 @@ class ComputerPlayer(Player):
         if otherPlayer.gridShips.returnLocation(r, c) == "~":  # if shot at water
             otherPlayer.gridShips.changeSingleSpace(r, c, "o")
             self.gridShots.changeSingleSpace(r, c, "o")
-            self.pHit = False
             self.shotHit = False
         elif otherPlayer.gridShips.returnLocation(r, c) != "~":  # if shot at ship
             otherPlayer.gridShips.changeSingleSpace(r, c, "x")
