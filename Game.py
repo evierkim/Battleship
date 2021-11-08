@@ -22,6 +22,17 @@ else:
 print("Game over")
 
 """
+        if self.r != 9 and self.gridShots.returnLocation(self.r+1, self.c) == "~":
+            self.belowOpen = True
+        if self.r != 0 and self.gridShots.returnLocation(self.r-1, self.c) == "~":
+            self.aboveOpen = True
+        if self.c != 0 and self.gridShots.returnLocation(self.r, self.c-1) == "~":
+            self.leftOpen = True
+        if self.c != 9 and self.gridShots.returnLocation(self.r, self.c+1) == "~":
+            self.rightOpen = True
+"""
+
+"""
         if self.hit == True: # previous turn hit ship
             if self.r >= 9: # bottom element
                 self.direction = 1
