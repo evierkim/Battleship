@@ -69,13 +69,13 @@ class ComputerPlayer(Player):
     checks the surrounding spaces to see if they are water and might have a ship
     """
     def checkSpaces(self, r, c):
-        if r != 9 and self.gridShots.returnLocation(r+1, c) == "~":
+        if r != 9 and self.gridShots.returnLocation(r+1, c) == "~": # if space is open
             self.belowOpen = True
-        if r != 0 and self.gridShots.returnLocation(r-1, c) == "~":
+        if r != 0 and self.gridShots.returnLocation(r-1, c) == "~": # if space is open
             self.aboveOpen = True
-        if c != 0 and self.gridShots.returnLocation(r, c-1) == "~":
+        if c != 0 and self.gridShots.returnLocation(r, c-1) == "~": # if space is open
             self.leftOpen = True
-        if c != 9 and self.gridShots.returnLocation(r, c+1) == "~":
+        if c != 9 and self.gridShots.returnLocation(r, c+1) == "~": # if space is open
             self.rightOpen = True
     """
     takeTurn
