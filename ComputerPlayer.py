@@ -12,7 +12,7 @@ class ComputerPlayer(Player):
         self.aboveOpen = False
         self.rightOpen = False
         self.leftOpen = False
-        self.count = 0 # counts how many hits have been made
+        self.count = 0
     """
     placeShip
     randomly places parameter ship in clear spaces
@@ -77,21 +77,21 @@ class ComputerPlayer(Player):
     @param  otherPlayer  Player object of opposing player
     """
     def takeTurn(self,otherPlayer):
-        if self.oHit: # if a previous turn hit a ship and the ship's not sunk yet
+        if self.oHit: # if the previous turn hit a ship and it's not sunk yet
             if self.count == 0: # previous turn was the first hit on ship
                 self.checkSpaces()
             self.count += 1
-            if self.belowOpen == False and self.direction == 0: # if space below isn't open
+            if (self.belowOpen == False and self.direction == 0):  # if space below isn't open
                 self.direction = 2
                 self.count = 0
-            if self.aboveOpen == False and self.direction == 2: # if space above isn't open
+            if (self.aboveOpen == False and self.direction == 2):  # if space above isn't open
                 self.direction = 1
                 self.count = 0
-            if self.leftOpen == False and self.direction == 1: # if space to left isn't open
+            if (self.leftOpen == False and self.direction == 1):  # if space to left isn't open
                 self.direction = 3
                 self.count = 0
             """ this will never be true/run
-            if self.rightOpen == False and self.direction == 3: # if space to right isn't open
+            if (self.rightOpen == False and self.direction == 3): # if space to right isn't open
                 self.direction = 0
                 self.count = 0
             """
@@ -150,34 +150,46 @@ class ComputerPlayer(Player):
             self.oHit = False
             self.direction = 0
             self.count = 0
-            self.countMax = 3
+            self.belowOpen = False
+            self.aboveOpen = False
+            self.rightOpen = False
+            self.leftOpen = False
         if b == 0: # battleship sunk
             print("battleship sunk")
             self.oHit = False
             self.direction = 0
             self.count = 0
-            if a == 0: # aircraft and battleship sunk
-                self.countMax = 2
+            self.belowOpen = False
+            self.aboveOpen = False
+            self.rightOpen = False
+            self.leftOpen = False
         if c == 0: # cruiser sunk
             print("cruiser sunk")
             self.oHit = False
             self.direction = 0
             self.count = 0
-            self.countMax = 1
-            if a == 0 and b == 0 and s == 0: # aircraft, battleship, cruiser, and sub sunk
-                self.countMax = 1
+            self.belowOpen = False
+            self.aboveOpen = False
+            self.rightOpen = False
+            self.leftOpen = False
         if d == 0: # destroyer sunk
             print("destroyer sunk")
             self.oHit = False
             self.direction = 0
             self.count = 0
+            self.belowOpen = False
+            self.aboveOpen = False
+            self.rightOpen = False
+            self.leftOpen = False
         if s == 0: # sub sunk
             print("submarine sunk")
             self.oHit = False
             self.direction = 0
             self.count = 0
-            if a == 0 and b == 0 and c == 0: # aircraft, battleship, cruiser, and sub sunk
-                self.countMax = 1
+            self.belowOpen = False
+            self.aboveOpen = False
+            self.rightOpen = False
+            self.leftOpen = False
     """
     stillHasShips
     determines if you still have ships on your board
