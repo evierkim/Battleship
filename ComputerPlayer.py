@@ -95,19 +95,19 @@ class ComputerPlayer(Player):
                 self.count = 0
             """
             if self.direction == 0: # space below
-                if self.r + self.count <= 9: # still in grid
+                if self.gridShots.returnLocation(self.r+self.count, self.c) == "~": # space is open
                     self.shot(otherPlayer, self.r + self.count, self.c) # takes shot below
                 if self.shotHit is False or self.r + self.count > 9:  # miss or off the grid
                     self.direction = 2 # changes direction to above
                     self.count = 0
             elif self.direction == 2:  # space above
-                if self.r - self.count >= 0: # still in grid
+                if self.gridShots.returnLocation(self.r-self.count, self.c) == "~": # space is open
                     self.shot(otherPlayer, self.r - self.count, self.c)
                 if self.shotHit is False or self.r - self.count < 0:  # miss or off grid
                     self.direction = 1
                     self.count = 0
             elif self.direction == 1:  # space to left
-                if self.c - self.count >= 0: # still in grid
+                if self.gridShots.returnLocation(self.r, self.c-self.count) == "~": # space is open
                     self.shot(otherPlayer,self.r, self.c - self.count)
                 if self.shotHit is False or self.r - self.count < 0:  # miss or off grid
                     self.direction = 3
