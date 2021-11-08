@@ -79,7 +79,7 @@ class ComputerPlayer(Player):
     """
     def takeTurn(self,otherPlayer):
         if self.oHit: # if the previous turn hit a ship and it's not sunk yet
-            if self.count == 0:
+            if self.count == 0: # previous turn was the first hit on ship
                 self.checkSpaces()
             self.count += 1
             if (self.belowOpen == False and self.direction == 0) or self.count > self.countMax: # if space below isn't open
@@ -118,7 +118,7 @@ class ComputerPlayer(Player):
                     self.direction = 0
                     self.count = 0
                 """
-        else: # previous turn did not hit a ship5
+        else: # previous turn did not hit a ship
             needNewSpace = True
             while needNewSpace: # runs until new index is generated
                 self.r = random.randrange(0, 10)
@@ -126,6 +126,8 @@ class ComputerPlayer(Player):
                 if self.gridShots.returnLocation(self.r,self.c) == "~": # if space has not been shot at
                     self.shot(otherPlayer, self.r, self.c)
                     needNewSpace = False
+            if self.shotHit: # random shot hit a ship
+                self.oHit = True
         self.printGrids()
         a = 0
         b = 0
