@@ -5,7 +5,7 @@ class ComputerPlayer(Player):
         super().__init__()
         self.oHit = False
         self.shotHit = False # tells us if the current shot just made was a hit
-        self.direction = 0
+        self.direction = 0 # 0 = below, 1 = left, 2 = above, 3 = right
         self.r = 0
         self.c = 0
         self.belowOpen = False
@@ -51,24 +51,26 @@ class ComputerPlayer(Player):
         if otherPlayer.gridShips.returnLocation(r, c) == "~":  # if shot at water
             otherPlayer.gridShips.changeSingleSpace(r, c, "o")
             self.gridShots.changeSingleSpace(r, c, "o")
+            self.pHit = False
             self.shotHit = False
         elif otherPlayer.gridShips.returnLocation(r, c) != "~":  # if shot at ship
             otherPlayer.gridShips.changeSingleSpace(r, c, "x")
             self.gridShots.changeSingleSpace(r, c, "x")
             print("Hit")
+            self.pHit = True
             self.shotHit = True
     """
     checkSpaces
     checks the surrounding spaces to see if they are water and might have a ship
     """
-    def checkSpaces(self):
-        if self.r != 9 and self.gridShots.returnLocation(self.r+1, self.c) == "~":
+    def checkSpaces(self, r, c):
+        if r != 9 and self.gridShots.returnLocation(r+1, c) == "~":
             self.belowOpen = True
-        if self.r != 0 and self.gridShots.returnLocation(self.r-1, self.c) == "~":
+        if r != 0 and self.gridShots.returnLocation(r-1, c) == "~":
             self.aboveOpen = True
-        if self.c != 0 and self.gridShots.returnLocation(self.r, self.c-1) == "~":
+        if c != 0 and self.gridShots.returnLocation(r, c-1) == "~":
             self.leftOpen = True
-        if self.c != 9 and self.gridShots.returnLocation(self.r, self.c+1) == "~":
+        if c != 9 and self.gridShots.returnLocation(r, c+1) == "~":
             self.rightOpen = True
     """
     takeTurn
@@ -77,23 +79,24 @@ class ComputerPlayer(Player):
     @param  otherPlayer  Player object of opposing player
     """
     def takeTurn(self,otherPlayer):
-        if self.oHit: # if the previous turn hit a ship and it's not sunk yet
-            self.checkSpaces()
+        if self.oHit: # if a previous turn hit a ship and it's not sunk yet
+            self.checkSpaces(self.r, self.c)
             self.count += 1
-            if (self.belowOpen == False and self.direction == 0):  # if space below isn't open
+            if self.belowOpen == False and self.direction == 0:  # if space below isn't open
                 self.direction = 2
                 self.count = 0
-            if (self.aboveOpen == False and self.direction == 2):  # if space above isn't open
+            if self.aboveOpen == False and self.direction == 2:  # if space above isn't open
                 self.direction = 1
                 self.count = 0
-            if (self.leftOpen == False and self.direction == 1):  # if space to left isn't open
+            if self.leftOpen == False and self.direction == 1:  # if space to left isn't open
                 self.direction = 3
                 self.count = 0
-            """ this will never be true/run
+            """this will never be true/run
             if (self.rightOpen == False and self.direction == 3): # if space to right isn't open
                 self.direction = 0
                 self.count = 0
             """
+
             if self.direction == 0: # space below
                 if self.gridShots.returnLocation(self.r+self.count, self.c) == "~": # space is open
                     self.shot(otherPlayer, self.r + self.count, self.c) # takes shot below
@@ -114,11 +117,12 @@ class ComputerPlayer(Player):
                     self.count = 0
             elif self.direction == 3:  # space to right
                 self.shot(otherPlayer,self.r, self.c + self.count)
-                """ this will never be true/run
+                """this will never be true/run
                 if self.shotHit is False or self.c + self.count > 9:  # miss or off grid
                     self.direction = 0
                     self.count = 0
                 """
+
         else: # previous turn did not hit a ship
             needNewSpace = True
             while needNewSpace: # runs until new index is generated
