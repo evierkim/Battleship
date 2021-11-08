@@ -63,13 +63,13 @@ class ComputerPlayer(Player):
     checks the surrounding spaces to see if they are water and might have a ship
     """
     def checkSpaces(self):
-        if self.r != 9 and self.gridShots.returnLocation(self.r + self.count, self.c) == "~":
+        if self.r != 9 and self.gridShots.returnLocation(self.r, self.c) == "~":
             self.belowOpen = True
-        if self.r != 0 and self.gridShots.returnLocation(self.r - self.count, self.c) == "~":
+        if self.r != 0 and self.gridShots.returnLocation(self.r, self.c) == "~":
             self.aboveOpen = True
-        if self.c != 0 and self.gridShots.returnLocation(self.r, self.c - self.count) == "~":
+        if self.c != 0 and self.gridShots.returnLocation(self.r, self.c) == "~":
             self.leftOpen = True
-        if self.c != 9 and self.gridShots.returnLocation(self.r, self.c + self.count) == "~":
+        if self.c != 9 and self.gridShots.returnLocation(self.r, self.c) == "~":
             self.rightOpen = True
     """
     takeTurn
@@ -79,7 +79,8 @@ class ComputerPlayer(Player):
     """
     def takeTurn(self,otherPlayer):
         if self.pHit: # if the previous turn hit a ship and it's not sunk yet
-            self.checkSpaces()
+            if self.count == 0:
+                self.checkSpaces()
             self.count += 1
             if (self.belowOpen == False and self.direction == 0) or self.count > self.countMax: # if space below isn't open
                 self.direction = 2
