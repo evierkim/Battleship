@@ -13,6 +13,11 @@ class ComputerPlayer(Player):
         self.rightOpen = False
         self.leftOpen = False
         self.count = 0
+        self.a = False
+        self.b = False
+        self.c = False
+        self.d = False
+        self.s = False
     """
     placeShip
     randomly places parameter ship in clear spaces
@@ -159,7 +164,8 @@ class ComputerPlayer(Player):
                     d += 1
                 elif otherPlayer.gridShips.returnLocation(x,y) == "S": # there is a sub
                     s += 1
-        if a == 0: # aircraft sunk
+        if a == 0 and self.a == False: # aircraft sunk
+            self.a = True
             print("aircraft carrier sunk")
             self.oHit = False
             self.direction = 0
@@ -168,7 +174,8 @@ class ComputerPlayer(Player):
             self.aboveOpen = False
             self.rightOpen = False
             self.leftOpen = False
-        if b == 0: # battleship sunk
+        if b == 0 and self.b == False: # battleship sunk
+            self.b = True
             print("battleship sunk")
             self.oHit = False
             self.direction = 0
@@ -177,7 +184,8 @@ class ComputerPlayer(Player):
             self.aboveOpen = False
             self.rightOpen = False
             self.leftOpen = False
-        if c == 0: # cruiser sunk
+        if c == 0 and self.c == False: # cruiser sunk
+            self.c = True
             print("cruiser sunk")
             self.oHit = False
             self.direction = 0
@@ -186,7 +194,8 @@ class ComputerPlayer(Player):
             self.aboveOpen = False
             self.rightOpen = False
             self.leftOpen = False
-        if d == 0: # destroyer sunk
+        if d == 0 and self.d == False: # destroyer sunk
+            self.d = True
             print("destroyer sunk")
             self.oHit = False
             self.direction = 0
@@ -195,7 +204,8 @@ class ComputerPlayer(Player):
             self.aboveOpen = False
             self.rightOpen = False
             self.leftOpen = False
-        if s == 0: # sub sunk
+        if s == 0 and self.s == False: # sub sunk
+            self.s = True
             print("submarine sunk")
             self.oHit = False
             self.direction = 0
