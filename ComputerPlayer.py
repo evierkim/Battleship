@@ -91,6 +91,7 @@ class ComputerPlayer(Player):
                     self.checkSpaces(self.r - self.count, self.c)
                 elif self.direction == 3: # if right
                     self.checkSpaces(self.r, self.c + self.count)
+            self.count += 1
             if self.belowOpen == False and self.direction == 0:  # if space below isn't open
                 self.direction = 2
                 self.count = 0
