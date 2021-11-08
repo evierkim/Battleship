@@ -52,6 +52,7 @@ class ComputerPlayer(Player):
         if otherPlayer.gridShips.returnLocation(r, c) == "~":  # if shot at water
             otherPlayer.gridShips.changeSingleSpace(r, c, "o")
             self.gridShots.changeSingleSpace(r, c, "o")
+            self.pHit = False
             self.shotHit = False
         elif otherPlayer.gridShips.returnLocation(r, c) != "~":  # if shot at ship
             otherPlayer.gridShips.changeSingleSpace(r, c, "x")
