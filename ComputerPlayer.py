@@ -3,7 +3,6 @@ import random
 class ComputerPlayer(Player):
     def __init__(self):
         super().__init__()
-        #hi
         self.oHit = False
         self.shotHit = False # tells us if the current shot just made was a hit
         self.direction = 0 # 0 = below, 1 = left, 2 = above, 3 = right
